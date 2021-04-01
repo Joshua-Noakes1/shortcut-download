@@ -1,0 +1,26 @@
+{
+  "name": "shortcut-download",
+  "version": "1.0.0",
+  "description": "An api that allows Twitter and Reddit videos to downloaded with the apple shortcuts app",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Joshua-Noakes1/shortcut-download.git"
+  },
+  "keywords": [
+    "Apple",
+    "Apple-Shortcuts",
+    "NodeJS",
+    "Javascript"
+  ],
+  "author": "Joshua-Noakes1",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/Joshua-Noakes1/shortcut-download/issues"
+  },
+  "homepage": "https://github.com/Joshua-Noakes1/shortcut-download#readme"
+}
