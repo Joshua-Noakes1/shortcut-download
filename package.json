@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/Joshua-Noakes1/shortcut-download/issues"
   },
-  "homepage": "https://github.com/Joshua-Noakes1/shortcut-download#readme"
+  "homepage": "https://github.com/Joshua-Noakes1/shortcut-download#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0"
+  }
 }
