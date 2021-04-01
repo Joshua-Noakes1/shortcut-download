@@ -1,6 +1,4 @@
 // https://github.com/Joshua-Noakes1/shortcut-download
-
-// Node http server
 const http = require('http');
 const app = require('./app.js');
 require('dotenv').config();
