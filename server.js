@@ -1,6 +1,6 @@
 // https://github.com/Joshua-Noakes1/shortcut-download
 const http = require('http');
-const app = require('./app.js');
+const app = require('./app');
 require('dotenv').config();
 
 // defaults to port 3000 if no port can be found
