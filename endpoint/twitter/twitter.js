@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const twitter = require('./get-video-url');
+const twitterGetUrl = require("twitter-url-direct");
 
 router.post('/download', async (req, res, next) => {
     // get video urls
-    var twt_videos = await twitter.get_url(req.body.post_url);
+    var twt_videos = await twitterGetUrl(req.body.url);
     var response = {}
 
     // if video doesnt exist we respond with a 404 not found 
