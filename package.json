@@ -1,7 +1,7 @@
 {
   "name": "shortcut-download",
   "version": "1.0.0",
-  "description": "An api that allows Twitter and Reddit videos to downloaded with the apple shortcuts app",
+  "description": "An api that allows Twitter and Reddit videos to be downloaded with the apple shortcuts app",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
