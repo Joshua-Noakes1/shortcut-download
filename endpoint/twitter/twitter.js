@@ -4,11 +4,11 @@ const twitterGetUrl = require("twitter-url-direct");
 
 router.post('/download', async (req, res, next) => {
     // get video urls
-    var twt_video = await twitterGetUrl(req.body.url);
+    var twt_videos = await twitterGetUrl(req.body.url);
     var response = {}
 
     // if video doesnt exist we respond with a 404 not found 
-    if (req.body.url == "" || req.body.url == undefined || twt_video.type != "video" || twt_video.found == false) {
+    if (twt_videos.type != "video" || twt_videos.found == false) {
         res.status(404).json({
             message: "❌ Not Found ❌"
         });
@@ -16,14 +16,14 @@ router.post('/download', async (req, res, next) => {
     }
 
     // We need to workout which video is the larges if theres more than one 
-    if (twt_video.dimensionsAvailable > 1) {
+    if (twt_videos.dimensionsAvailable > 1) {
         const resolution = []
         let largest_video
 
         // for loop to do math to workout video resolution from the width x height and push the result to an array
-        for (var i = 0; i < twt_video.dimensionsAvailable; i++) {
-            var width = Number(twt_video.download[i].width);
-            var height = Number(twt_video.download[i].height);
+        for (var i = 0; i < twt_videos.dimensionsAvailable; i++) {
+            var width = Number(twt_videos.download[i].width);
+            var height = Number(twt_videos.download[i].height);
             var combined_wxh = width * height;
             resolution.push(combined_wxh);
         }
@@ -33,10 +33,10 @@ router.post('/download', async (req, res, next) => {
         largest_video = resolution.indexOf(largest_video);
 
         // json response
-        response.url = twt_video.download[largest_video].url;
+        response.url = twt_videos.download[largest_video].url;
     } else {
         // just reply with the first video if only one quality option is there
-        response.url = twt_video.download[0].url;
+        response.url = twt_videos.download[0].url;
     }
 
     res.status(200).json(response);
