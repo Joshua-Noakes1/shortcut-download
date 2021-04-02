@@ -19,17 +19,16 @@ router.post('/download', async (req, res, next) => {
     if (twt_videos.dimensionsAvailable > 1) {
         const resolution = []
         let largest_video
-        var i
 
-        // for loop to do math to workout video the width x height and push it into an array
-        for (i = 0; i < twt_videos.dimensionsAvailable; i++) {
+        // for loop to do math to workout video resolution from the width x height and push the result to an array
+        for (var i = 0; i < twt_videos.dimensionsAvailable; i++) {
             var width = Number(twt_videos.download[i].width);
             var height = Number(twt_videos.download[i].height);
-            var combined_size = width * height;
-            resolution.push(combined_size);
+            var combined_wxh = width * height;
+            resolution.push(combined_wxh);
         }
 
-        // math to workout which video is the largest in the array
+        // get the highest element in the array and store its number
         largest_video = Math.max.apply(Math, resolution);
         largest_video = resolution.indexOf(largest_video);
 
