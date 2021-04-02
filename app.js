@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 
 // components
 const twitter = require('./endpoint/twitter/twitter');
+const reddit = require('./endpoint/reddit/reddit');
 
 // dev
 app.use(morgan('dev'));
@@ -37,6 +38,7 @@ app.use((req, res, next) => {
 
 // routes
 app.use('/twitter', twitter);
+app.use('/reddit', reddit);
 
 app.get('/status', (req, res) => {
     res.status(200).json({
