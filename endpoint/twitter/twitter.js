@@ -5,6 +5,7 @@ const twitter = require('./get-video-url');
 router.post('/download', async (req, res, next) => {
     // get video urls
     var twt_videos = await twitter.get_url(req.body.post_url);
+    var response = {}
 
     // if video doesnt exist we respond with a 404 not found 
     if (twt_videos.type != "video" || twt_videos.found == false) {
@@ -14,22 +15,32 @@ router.post('/download', async (req, res, next) => {
         return;
     }
 
-    // Working out what the largest video is
+    // We need to workout which video is the larges if theres more than one 
     if (twt_videos.dimensionsAvailable > 1) {
-        const video_meta = []
+        const resolution = []
         let largest_video
-        var i 
+        var i
+
+        // for loop to do math to workout video the width x height and push it into an array
         for (i = 0; i < twt_videos.dimensionsAvailable; i++) {
             var width = Number(twt_videos.download[i].width);
             var height = Number(twt_videos.download[i].height);
             var combined_size = width * height;
-            video_meta.push(combined_size);
+            resolution.push(combined_size);
         }
-        largest_video = Math.max.apply(Math, video_meta);
-        console.log(video_meta.indexOf(largest_video));
+
+        // math to workout which video is the largest in the array
+        largest_video = Math.max.apply(Math, resolution);
+        largest_video = resolution.indexOf(largest_video);
+
+        // json response
+        response.url = twt_videos.download[largest_video].url;
+    } else {
+        // just reply with the first video if only one quality option is there
+        response.url = twt_videos.download[0].url;
     }
 
-    res.status(200).json(twt_videos);
+    res.status(200).json(response);
 });
 
 module.exports = router;
