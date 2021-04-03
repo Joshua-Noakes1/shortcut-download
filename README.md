@@ -5,3 +5,5 @@ An api that allows Twitter and Reddit videos to be downloaded with the apple sho
 ## Using
 ### Twitter
 - twitter-url-direct - https://www.npmjs.com/package/twitter-url-direct
+### Reddit 
+- vReddit Ripper - https://vred.rip
