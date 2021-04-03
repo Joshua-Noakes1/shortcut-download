@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const twitterGetUrl = require("twitter-url-direct");
+const url = require('url');
 
 router.post('/download', async (req, res, next) => {
     // checking the domain url
