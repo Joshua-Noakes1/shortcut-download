@@ -20,12 +20,9 @@ router.post('/download', async (req, res, next) => {
     const reddit = await fetch(`${post_url}.json`);
     const reddit_json = await reddit.json();
 
-    // find the fallback video url in the json
-    const fallback_url = `${reddit_json[0].data.children[0].data.secure_media.reddit_video.fallback_url}`;
-
     // do some regex to get just the id from the fallback url | https://v.redd.it/0sft9w7j8sq61/DASH_720.mp4?source=fallback > 0sft9w7j8sq61
     let parsed_url
-    parsed_url = url.parse(fallback_url);
+    parsed_url = url.parse(reddit_json[0].data.children[0].data.secure_media.reddit_video.fallback_url);
     parsed_url = parsed_url.pathname.toString().match(/.+?(?=D)/)[0];
     parsed_url = parsed_url.toString().replace(/\//g, '');
 
