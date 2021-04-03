@@ -4,6 +4,15 @@ const fetch = require('node-fetch');
 const url = require('url');
 
 router.post('/download', async (req, res, next) => {
+    // checking the domain url
+    const parsed_raw_url = url.parse(req.body.url);
+    if (parsed_raw_url.hostname != 'www.reddit.com') {
+        res.status(404).json({
+            message: '❌ Not Found ❌'
+        });
+        return;
+    }
+
     // remove the ?utm that reddit adds from the share button
     const post_url = req.body.url.toString().match(/.+?(?=\?)/);
 

@@ -3,6 +3,15 @@ const router = express.Router();
 const twitterGetUrl = require("twitter-url-direct");
 
 router.post('/download', async (req, res, next) => {
+    // checking the domain url
+    const parsed_raw_url = url.parse(req.body.url);
+    if (parsed_raw_url.hostname != 'twitter.com') {
+        res.status(404).json({
+            message: '❌ Not Found ❌'
+        });
+        return;
+    }
+
     // get video urls
     var twt_video = await twitterGetUrl(req.body.url);
     var response = {}
