@@ -50,6 +50,13 @@ async function redditSave(reddit_url) {
         // close browser
         browser.close();
 
+        // if imgur just send link
+        if (url.includes('imgur.com')) {
+            return {
+                "url": url
+            }
+        }
+
         // add the download url onto the link if its a gif
         if (url.includes('/d/') && !url.includes('redditsave.com')) {
             return {
@@ -76,4 +83,6 @@ async function redditSave(reddit_url) {
     }
 }
 
-module.exports = {redditSave}
+module.exports = {
+    redditSave
+}
