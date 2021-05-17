@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const fetch = require('node-fetch');
+const redditsave = require('./redditsave');
 const url = require('url');
 
 router.post('/download', async (req, res, next) => {
@@ -13,25 +13,11 @@ router.post('/download', async (req, res, next) => {
         return;
     }
 
-    // remove the ?utm that reddit adds from the share button
-    const post_url = req.body.url.toString().match(/.+?(?=\?)/);
-
-    // get json from reddit about post
-    const reddit = await fetch(`${post_url}.json`);
-    const reddit_json = await reddit.json();
-
-    // do some regex to get just the id from the fallback url | https://v.redd.it/0sft9w7j8sq61/DASH_720.mp4?source=fallback > 0sft9w7j8sq61
-    let parsed_url
-    parsed_url = url.parse(reddit_json[0].data.children[0].data.secure_media.reddit_video.fallback_url);
-    parsed_url = parsed_url.pathname.toString().match(/.+?(?=D)/)[0];
-    parsed_url = parsed_url.toString().replace(/\//g, '');
-
-    // use vred.rip api to get combined audio and video 
-    const vred = await fetch(`https://vred.rip/api/vreddit/${parsed_url}`);
-    const vred_json = await vred.json();
+    // get reddit save
+    const reddit = await redditsave.redditSave(req.body.url);
 
     res.status(200).json({
-        url: `${vred_json.source}`
+        url: `${reddit.url}`
     });
 });
 
